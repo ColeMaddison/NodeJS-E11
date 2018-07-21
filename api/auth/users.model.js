@@ -12,7 +12,12 @@ const UsersSchema = new mongoose.Schema({
     password: {type: String, required: true, select: false},
     fullName: {type: String},
     telephone: [PhoneSchema],
-    description: {type: mongoose.Schema.Types.Mixed}
+    description: {type: mongoose.Schema.Types.Mixed},
+    avatar: {type: String},
+    websie: {type: String},
+    city: {type: String},
+    country: {type: String},
+    posts: [{type: String}]
 }, {
     timestamps: true,
     collection: "UsersCollection"
@@ -47,7 +52,6 @@ UsersSchema.statics = {
             .lean()
             .exec( (err, doc) => {
                 if (err) return cb({message: err.message});
-
                 if (!doc) return cb({message: "email is not correct"});
                 cb(false, doc);
             });

@@ -10,9 +10,9 @@ exports.validate = (schema) => {
 };
 
 exports.isAuth = (req, res, next) => {
-    if(req.isAuthenticated()) {
+    if(req.user) {
         return next();
-    }
+    } 
 
     res.clearCookie('connected.sid');
     res.status(401).send({message: "Unauthorized"});

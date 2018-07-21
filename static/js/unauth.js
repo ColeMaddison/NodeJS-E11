@@ -27,7 +27,7 @@ $('form').on('submit', e => {
     let value = $(e.target).attr('class');
     let selector = '.' + value;
     $.ajax({
-        url: value === "register" ? '/api/users/register' : '/api/auth',
+        url: value === "register" ? '/api/auth/register' : '/api/auth/',
         type: 'POST',
         data: {
             email: $(selector + ' [name=email]').val(),

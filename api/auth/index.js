@@ -9,6 +9,8 @@ const validation = require('./auth.validation');
 
 routes.get('/', ctrl.getTest);
 
+routes.post('/register', mdl.validate(validation.register), ctrl.registerNewUser);
+
 routes.post('/', passport.authenticate('local', {}), ctrl.login);
 
 module.exports = routes;

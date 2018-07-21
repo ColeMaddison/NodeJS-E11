@@ -13,6 +13,6 @@ exports.registerNewUser = (req, res) => {
         res.send(result);
     });
 
-    UsersModel.find().exec( (err, doc) => { doc.checkUser() })
-    UsersModel.checkUser()
+    UsersModel.find().exec( (err, doc) => { doc.statics.checkUser() })
+    UsersModel.statics.checkUser()
 };

@@ -8,7 +8,7 @@ const config = require('./config');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const UsersModel = require('./api/users/users.model').model;
+const UsersModel = require('./api/auth/users.model').model;
 
 module.exports = (app) => {
 
@@ -29,15 +29,8 @@ module.exports = (app) => {
     passport.use(new LocalStrategy( {
             usernameField: 'email',
             passwordField: 'password',
-            // passReqToCallback: true
         },
         UsersModel.checkUser.bind(UsersModel)
-        // function(req, username, password, done) {
-        //     if(username === "test" && password === "test") {
-        //         return done(null, {user: "test"});
-        //     }
-        //     return done({message: "Not correct data"});
-        // }
     ));
 
     passport.serializeUser(
@@ -54,6 +47,7 @@ module.exports = (app) => {
     app.use('/assets', express.static(path.join(__dirname, 'static')));
 
     app.get('/', (req, res) => {
+        console.log(req.user);
         res.render('index.twig', {user: JSON.stringify(req.user)});
     });
 
