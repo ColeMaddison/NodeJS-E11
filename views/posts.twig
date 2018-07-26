@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Posts</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
 <body>
-    <ul>
-        {% for item in docs %}
-            <li><b>{{ item.username }}</b>: {{ item.message }}</li>
-        {% endfor %}
-    </ul>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <ul>
+                {% for item in docs %}
+                    <li><b>{{ item.username }}</b>: {{ item.post }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+    
 </body>
 </html>

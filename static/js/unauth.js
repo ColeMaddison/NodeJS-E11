@@ -1,4 +1,4 @@
-$('form .message a').on('click', e => {
+$('.formAuth .message a').on('click', e => {
     e.preventDefault();
     if($('.login:visible').length > 0) {
         $('.login').css('display','none');
@@ -22,7 +22,7 @@ function response (data) {
     return resp;
 }
 
-$('form').on('submit', e => {
+$('.formAuth').on('submit', e => {
     e.preventDefault();
     let value = $(e.target).attr('class');
     let selector = '.' + value;
@@ -40,14 +40,20 @@ $('form').on('submit', e => {
             $(selector + ' button').prop('disabled', true);
         },
         success: (res) => {
-            alert(response(res));
+            console.log(response(res));
             location.reload();
         },
         error: (res) => {
-            alert(response(res));
+            console.log(response(res));
         },
         complete: () => {
             $(selector + ' button').prop('disabled', false);
         }
     })
 });
+
+$('.saveMessage').on('submit', e => {
+    e.preventDefault();
+    let postText = $(e.target)[0][0].value;
+    console.log(postText);
+})

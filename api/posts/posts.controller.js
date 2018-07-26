@@ -3,12 +3,6 @@ const postsModel = require('./posts.model');
 // const mongoose = require('mongoose');
 
 exports.addNewpost = (req, res) => {
-
-    // mongoose.model("postsModel").create(req.body, (err, doc) => {
-    //     res.send(doc);
-    // });
-    //
-
     postsModel.create(req.body, (err, doc) => {
         res.send(doc);
     });

@@ -1,6 +1,9 @@
 
 exports.login = (req, res) => {
     res.json(req.session);
+
+    req.app.locals.io.emit("user", req.user.id || req.user._id);
+
 };
 
 exports.getTest = (req, res) => {
@@ -21,14 +24,4 @@ exports.registerNewUser = (req, res) => {
 
         res.send(result);
     });
-
-    // UsersModel.find().exec( (err, doc) => { 
-    //     if(err) {
-    //         console.log(err);
-    //     }
-    //     console.log(doc);
-    //     // doc.statics.checkUser() 
-    //     UsersModel.checkUser()
-    // })
-    
 };

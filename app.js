@@ -10,6 +10,7 @@ const nunjucks = require('nunjucks');
 
 const config = require('./config');
 const routes = require('./routes');
+const socket = require('socket.io');
 
 mongoose.connect(config.mongo.uri, config.mongo.options);
 if(process.env.NODE_ENV === "dev") {
@@ -33,6 +34,15 @@ nunjucks.configure(path.join(__dirname, 'views'), {
 });
 
 routes(app);
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+    serveClient: true
+});
+
+app.locals.io = io;
+
+require('./socket')(io);
 
 app.listen(PORT, () => {
     console.log(`Server started with env: ${process.env.NODE_ENV} on port ${PORT}`);
