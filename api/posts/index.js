@@ -6,8 +6,8 @@ const ctrl = require('./posts.controller');
 const mdl = require('../middlewares');
 const validation = require('./posts.validation');
 
-routes.get('/'/*, mdl.isAuth*/, ctrl.showposts);
+routes.get('/', mdl.isAuth, ctrl.showposts);
 
-routes.post('/'/*, mdl.isAuth*/, mdl.validate(validation.addNewpost), ctrl.addNewpost);
+routes.post('/', mdl.isAuth, mdl.validate(validation.addNewpost), ctrl.addNewpost);
 
 module.exports = routes;

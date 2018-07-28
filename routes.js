@@ -29,6 +29,7 @@ module.exports = (app) => {
     passport.use(new LocalStrategy( {
             usernameField: 'email',
             passwordField: 'password',
+            nickname: 'nickname'
         },
         UsersModel.checkUser.bind(UsersModel)
     ));

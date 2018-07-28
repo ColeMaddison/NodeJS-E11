@@ -1,8 +1,9 @@
 
 exports.login = (req, res) => {
+    console.log(req.session);
     res.json(req.session);
 
-    req.app.locals.io.emit("user", req.user.id || req.user._id);
+    // req.app.locals.io.emit("user", req.user.id || req.user._id);
 
 };
 

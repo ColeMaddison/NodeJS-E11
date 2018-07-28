@@ -10,6 +10,7 @@ const PhoneSchema = new mongoose.Schema({
 const UsersSchema = new mongoose.Schema({
     email: {type: String, required: true, lowercase: true, trim: true, unique: true},
     password: {type: String, required: true, select: false},
+    nickname: {type: String, required: true},
     fullName: {type: String},
     telephone: [PhoneSchema],
     description: {type: mongoose.Schema.Types.Mixed},
@@ -59,7 +60,6 @@ UsersSchema.statics = {
 };
 
 UsersSchema.pre('save', function(next) {
-    // this.markModified('description')
 
     if(this.isNew || this.isModified('password')) {
         this.password = bcrypt.hashSync(this.password, 8);

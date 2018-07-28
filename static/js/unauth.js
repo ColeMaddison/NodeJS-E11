@@ -26,12 +26,14 @@ $('.formAuth').on('submit', e => {
     e.preventDefault();
     let value = $(e.target).attr('class');
     let selector = '.' + value;
+    console.log($(selector + ' [name=nickname]').val());
     $.ajax({
         url: value === "register" ? '/api/auth/register' : '/api/auth/',
         type: 'POST',
         data: {
             email: $(selector + ' [name=email]').val(),
-            password: $(selector + ' [name=password]').val()
+            password: $(selector + ' [name=password]').val(),
+            nickname: $(selector + ' [name=nickname]').val()
         },
         xhrFields: {
             withCredentials: true
@@ -40,7 +42,6 @@ $('.formAuth').on('submit', e => {
             $(selector + ' button').prop('disabled', true);
         },
         success: (res) => {
-            console.log(response(res));
             location.reload();
         },
         error: (res) => {
@@ -55,5 +56,24 @@ $('.formAuth').on('submit', e => {
 $('.saveMessage').on('submit', e => {
     e.preventDefault();
     let postText = $(e.target)[0][0].value;
-    console.log(postText);
+    $.ajax({
+        url: '/api/posts',
+        type: 'POST',
+        data: {
+            post: postText
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        success: (res) => {
+            console.log('success', res);
+            $('#postTextArea').val('');
+        },
+        error: (res) => {
+            console.log(response(res));
+        },
+        complete: () => {
+            console.log('done')
+        }
+    });
 })
