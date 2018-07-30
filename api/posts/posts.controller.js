@@ -1,18 +1,19 @@
 const postsModel = require('./posts.model');
 const userModel = require('../auth/users.model');
 
-// const mongoose = require('mongoose');
-
 exports.addNewpost = (req, res) => {
     userModel.model.findById(req.user._id, (err, data) => {
         if(err){
             return res.send(err);
         } else {
+            const reqBod = req.body;
+            console.log(reqBod);
             postsModel
                 .create({
-                    post: req.body.post,
+                    post: reqBod.post,
                     username: data.nickname,
-                    show: req.body.show
+                    show: reqBod.show,
+                    title: reqBod.title
                 },
                 (err, data) => {
                     if(err){
@@ -35,3 +36,15 @@ exports.showposts = (req, res) => {
         });
 };
 
+exports.postDetails = (req, res) => {
+    const { postId } = req.params;
+
+    postsModel
+        .findById(postId, (err, postData) => {
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('detailedPost.twig', {postData});
+            }
+        })
+}

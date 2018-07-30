@@ -55,18 +55,21 @@ $('.formAuth').on('submit', e => {
 
 $('.saveMessage').on('submit', e => {
     e.preventDefault();
-    let postText = $(e.target)[0][0].value;
+    let postTitle = $(e.target)[0][0].value;
+    let postText = $(e.target)[0][1].value;
+
     $.ajax({
         url: '/api/posts',
         type: 'POST',
         data: {
-            post: postText
+            post: postText,
+            title: postTitle
         },
         xhrFields: {
             withCredentials: true
         },
         success: (res) => {
-            console.log('success', res);
+            $('#postTitle').val('');
             $('#postTextArea').val('');
         },
         error: (res) => {

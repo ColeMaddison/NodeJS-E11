@@ -18,7 +18,7 @@ module.exports = (app) => {
         saveUninitialized: false,
         unset: 'destroy',
         cookie: {
-            maxAge: 60000
+            maxAge: 600000
         },
         store: new MongoDBStore({
             uri: config.mongo.uri,
