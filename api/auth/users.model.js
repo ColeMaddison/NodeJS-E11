@@ -49,7 +49,7 @@ UsersSchema.statics = {
     deserializeUser: function(user, cb) {
         this
             .findById(user)
-            .select('email fullName')
+            .select('email fullName nickname')
             .lean()
             .exec( (err, doc) => {
                 if (err) return cb({message: err.message});

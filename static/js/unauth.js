@@ -26,7 +26,7 @@ $('.formAuth').on('submit', e => {
     e.preventDefault();
     let value = $(e.target).attr('class');
     let selector = '.' + value;
-    console.log($(selector + ' [name=nickname]').val());
+    // console.log($(selector + ' [name=nickname]').val());
     $.ajax({
         url: value === "register" ? '/api/auth/register' : '/api/auth/',
         type: 'POST',
@@ -56,27 +56,59 @@ $('.formAuth').on('submit', e => {
 $('.saveMessage').on('submit', e => {
     e.preventDefault();
     let postTitle = $(e.target)[0][0].value;
-    let postText = $(e.target)[0][1].value;
+    // let postText = $(e.target)[0][1].value;
+    // let postFile = document.querySelector('#postFile').files[0];
+
+    const postHtml = $('#postTextArea').froalaEditor('html.get', true);
 
     $.ajax({
         url: '/api/posts',
         type: 'POST',
         data: {
-            post: postText,
-            title: postTitle
+            title: postTitle,
+            post: postHtml,
         },
-        xhrFields: {
-            withCredentials: true
-        },
-        success: (res) => {
-            $('#postTitle').val('');
-            $('#postTextArea').val('');
-        },
-        error: (res) => {
-            console.log(response(res));
-        },
-        complete: () => {
-            console.log('done')
-        }
+            xhrFields: {
+                withCredentials: true
+            },
+            success: res => {
+                console.log(res);
+                $('#postTitle').val('');
+                $('#postTextArea').froalaEditor('html.set', '');
+
+            },
+            error: err => {
+                console.error(err);
+            },
+            complete: () => {
+                console.log('request finished');
+            }
     });
+
+    // $.ajax({
+    //     url: '/api/posts',
+    //     type: 'POST',
+    //     data: {
+    //         title: postTitle,
+    //         post: postText,
+    //         file: postFile
+    //     },
+    //     xhrFields: {
+    //         withCredentials: true
+    //     },
+    //     success: (res) => {
+    //         $('#postTitle').val('');
+    //         $('#postTextArea').val('');
+    //         console.log($(e.target));
+    //     },
+    //     error: (res) => {
+    //         console.log(response(res));
+    //         // window.location.replace('/');
+    //     },
+    //     complete: () => {
+    //         console.log('done')
+    //     }
+    // });
+
+    
 })

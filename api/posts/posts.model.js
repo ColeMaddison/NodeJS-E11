@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const comment = require('../comments/model');
 
 const postsSchema = new Schema({
     username: {type: String},
@@ -10,9 +11,7 @@ const postsSchema = new Schema({
     addedBy: {type: Schema.ObjectId, ref: "UsersModel"},
     display: {type: Boolean, default: true},
     tags: [{type: String}],
-    comments: [{type: Schema.ObjectId, ref: "CommentsModel"}]
-
-    // addedAt: {type: Date, default: Date.now}
+    comments: [comment.commentSchema]
 }, {
     timestamps: true,
     collection: "postsCollection"
@@ -26,8 +25,9 @@ postsSchema.statics = {
 
 postsSchema.pre('save', function () {
     if(this.isNew) {
-        this.show = new Date(new Date().getTime() + this.show * 1000);
+        this.show = new Date(new Date().getTime() + this.show * 1000000);
     }
 });
+
 
 module.exports = mongoose.model("postsModel", postsSchema);

@@ -18,7 +18,7 @@ module.exports = (app) => {
         saveUninitialized: false,
         unset: 'destroy',
         cookie: {
-            maxAge: 600000
+            maxAge: 6000000
         },
         store: new MongoDBStore({
             uri: config.mongo.uri,
@@ -45,11 +45,10 @@ module.exports = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use('/assets', express.static(path.join(__dirname, 'static')));
+    app.use('/static', express.static(path.join(__dirname, 'static')));
 
     app.get('/', (req, res) => {
-        console.log(req.user);
-        res.render('index.twig', {user: JSON.stringify(req.user)});
+        res.render('index.twig', {user: req.user});
     });
 
     app.use(express.json());

@@ -6,6 +6,7 @@ const path = require('path');
 
 const allowedExts = [
     '.jpg',
+    '.jpg',
     '.png',
     '.gif'
 ];
@@ -14,7 +15,9 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const destinationPath = path.join(rootPath, 'static', 'img', req.user._id.toString());
 
-        if(!fs.existsSync(destinationPath)) fs.mkdirSync(destinationPath);
+        if(!fs.existsSync(destinationPath)) {
+            fs.mkdirSync(destinationPath);
+        }
 
         cb(null, destinationPath);
     },
@@ -40,6 +43,6 @@ const routes = Router();
 const ctrl = require('./files.controller');
 const mdl = require('../middlewares');
 
-routes.post('/', mdl.isAuth, upload.single('avatar'), ctrl.showMessages);
+routes.post('/', mdl.isAuth, upload.single("avatar"), ctrl.showMessages);
 
 module.exports = routes;

@@ -14,7 +14,7 @@ const socket = require('socket.io');
 
 mongoose.connect(config.mongo.uri, config.mongo.options);
 if(process.env.NODE_ENV === "dev") {
-    mongoose.set("debug", true);
+    mongoose.set("debug", false);
 }
 
 mongoose.connection.on('error', (err) => {

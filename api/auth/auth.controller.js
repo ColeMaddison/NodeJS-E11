@@ -1,10 +1,6 @@
 
 exports.login = (req, res) => {
-    console.log(req.session);
     res.json(req.session);
-
-    // req.app.locals.io.emit("user", req.user.id || req.user._id);
-
 };
 
 exports.getTest = (req, res) => {
@@ -22,7 +18,11 @@ exports.registerNewUser = (req, res) => {
             }
             return res.status(400).send({message: err.message});
         }
-
         res.send(result);
     });
 };
+
+exports.logout = (req, res) => {
+    req.logout();
+    res.redirect('/');
+}

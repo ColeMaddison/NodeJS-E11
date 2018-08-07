@@ -1,5 +1,6 @@
-const path = require('path');
+// const path = require('path');
 const { celebrate } = require('celebrate');
+
 
 exports.validate = (schema) => {
     return celebrate(schema, {
@@ -14,6 +15,7 @@ exports.isAuth = (req, res, next) => {
         return next();
     } 
 
+    // redirect to main if user not authorized
     res.clearCookie('connected.sid');
-    res.status(401).send({message: "Unauthorized"});
+    res.status(401).redirect('/');
 };

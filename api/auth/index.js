@@ -42,4 +42,6 @@ routes.post('/register', mdl.validate(validation.register), ctrl.registerNewUser
 
 routes.post('/', passport.authenticate('local', {}), ctrl.login);
 
+routes.get('/logout', mdl.isAuth, ctrl.logout);
+
 module.exports = routes;
