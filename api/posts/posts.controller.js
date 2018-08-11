@@ -1,9 +1,8 @@
 const postsModel = require('./posts.model');
 const userModel = require('../auth/users.model');
 const froala = require('wysiwyg-editor-node-sdk');
-const express = require('express');
-const filesApp = express();
-const bodyparser = require('body-parser');
+const path = require('path');
+const fs = require('fs');
 
 exports.addNewpost = (req, res) => {
 
@@ -25,24 +24,36 @@ exports.addNewpost = (req, res) => {
                         if(err) {
                             return res.send(err)
                         } else {
-                            return res.send(data)
+                            userModel.model
+                                .findByIdAndUpdate(
+                                    req.user._id,
+                                    { $push: { posts: data._id.toString() } },
+                                    (err, savedPost) => {
+                                        if(err){
+                                            console.error(err);
+                                        }
+                                    }
+                                );
+                            return res.send(data);
                         }
                     })
             }
         }
     );
-
-    // console.log(req.body);
-    // res.send('yes');
 };
 
 exports.imageUpload = (req, res) => {
-    
-    froala.Image.upload(req, '/static/', (err, data) => {
+
+    const destinationPath = path.join('static', 'img', req.user._id.toString());
+
+    if(!fs.existsSync(destinationPath)) {
+        fs.mkdirSync(destinationPath);
+    }
+
+    froala.Image.upload(req, `/${destinationPath}/`, (err, data) => {
         if(err) {
             return res.send(JSON.stringify(err));
         } else {
-            console.log(data);
             res.send(data)
         }
     })

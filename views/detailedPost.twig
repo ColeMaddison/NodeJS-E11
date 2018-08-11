@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><strong>{{user.nickname}}</strong></a>
+                <a class="nav-link" href="/profile"><strong>{{user.nickname}}</strong></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/api/auth/logout">Log out</a>
@@ -44,9 +44,6 @@
                 <hr>
                 <!-- Date/Time -->
                 <p> on {{postData.createdAt.toDateString()}} at {{postData.createdAt.toTimeString().substr(0,9)}}</p>
-                <hr>
-                <!-- Preview Image -->
-                <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
                 <hr>
                 <p>{{postData.post | safe}}</p>
                 <hr>

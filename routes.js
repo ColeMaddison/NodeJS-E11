@@ -1,6 +1,8 @@
 const path = require('path');
 
 const express = require('express');
+const bodyparser = require('body-parser');
+const favicon = require('express-favicon');
 const expressSession = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const config = require('./config');
@@ -46,14 +48,19 @@ module.exports = (app) => {
     app.use(passport.session());
 
     app.use('/static', express.static(path.join(__dirname, 'static')));
+    app.use(favicon(__dirname + '/static/img/favicon.png'));
 
     app.get('/', (req, res) => {
         res.render('index.twig', {user: req.user});
     });
 
+    app.use(bodyparser.json());
+
+    app.use('/profile', require('./api/user/index'));
+    
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
-
+    
     app.use('/api', require('./api/index'));
 
     app.use( (err, req, res, next) => {

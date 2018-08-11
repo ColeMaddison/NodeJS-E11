@@ -2,7 +2,6 @@ const postsModel = require('../posts/posts.model');
 const userModel = require('../auth/users.model');
 
 exports.addComment = (req, res) => {
-    console.log(req.body);
     const reqBod = req.body;
     const { _id } = req.user;
     const { comment, commentId } = req.body;
