@@ -20,8 +20,8 @@ exports.getUser = (req, res) => {
         )
 };
 
+// update user data
 exports.updateUserData = (req, res) => {
-    // console.log(req.file);
     const userId = req.user._id;
     const userEmailNew = req.body.email;
     const userAvatar = req.file;
@@ -34,10 +34,20 @@ exports.updateUserData = (req, res) => {
         options['email'] = userEmailNew;
     } else {
         const avatarPath = path.join(logoDirectory, userAvatar.filename);
-        // console.log(avatarPath);
         options['avatar'] = avatarPath;
         options['email'] = userEmailNew;
     }
+
+    // userModel.model.findById(
+    //     userId,
+    //     (err, data) => {
+    //         if(err) {
+    //             console.error(err);
+    //         } else {
+
+    //         }
+    //     }
+    // );
 
     userModel.model.findByIdAndUpdate(
         userId,
@@ -46,6 +56,10 @@ exports.updateUserData = (req, res) => {
             if(err) {
                 console.error(err);
             } else {
+                console.log(data);
+                if(data.email === userEmailNew) {
+                    return res.status(400).send('email exists');
+                }
                 fs.readdir(avatarPathAbsolute, (err, files) => {
                     if(err) {
                         return console.error(err);
@@ -62,7 +76,8 @@ exports.updateUserData = (req, res) => {
                         }
                     });
                 });
-                res.status(200).send;
+
+                res.status(200).end();
             }
         }
     );

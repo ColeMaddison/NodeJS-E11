@@ -9,6 +9,8 @@ const ctrlComments = require('../comments/controller');
 
 routes.get('/', mdl.isAuth, ctrl.showposts);
 
+routes.delete('/:postId', mdl.isAuth, ctrl.deletePost);
+
 routes.get('/:postId', mdl.isAuth, ctrl.postDetails);
 
 routes.post('/', mdl.isAuth, mdl.validate(validation.addNewpost), ctrl.addNewpost);

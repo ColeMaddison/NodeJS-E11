@@ -17,6 +17,7 @@ exports.addNewpost = (req, res) => {
                     .create({
                         post: reqBod.post,
                         username: userData.nickname,
+                        addedBy: userData._id.toString(),
                         show: reqBod.show,
                         title: reqBod.title
                     },
@@ -85,4 +86,19 @@ exports.postDetails = (req, res) => {
                 res.render('detailedPost.twig', {postData, user});
             }
         })
+}
+
+exports.deletePost = (req, res) => {
+    const { postId } = req.params;
+    
+    postsModel.findByIdAndRemove(
+        postId,
+        (err, data) => {
+            if(err) {
+                console.error(err);
+            } else {
+                res.status(200).send('ok');
+            }
+        }
+    );
 }

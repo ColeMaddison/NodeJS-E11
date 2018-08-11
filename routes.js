@@ -1,7 +1,6 @@
 const path = require('path');
 
 const express = require('express');
-const bodyparser = require('body-parser');
 const favicon = require('express-favicon');
 const expressSession = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(expressSession);
@@ -53,8 +52,6 @@ module.exports = (app) => {
     app.get('/', (req, res) => {
         res.render('index.twig', {user: req.user});
     });
-
-    app.use(bodyparser.json());
 
     app.use('/profile', require('./api/user/index'));
     

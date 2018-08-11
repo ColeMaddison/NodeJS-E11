@@ -55,9 +55,7 @@ $('.formAuth').on('submit', e => {
 
 $('.saveMessage').on('submit', e => {
     e.preventDefault();
-    let postTitle = $(e.target)[0][0].value;
-    // let postText = $(e.target)[0][1].value;
-    // let postFile = document.querySelector('#postFile').files[0];
+    const postTitle = $(e.target)[0][0].value;
 
     const postHtml = $('#postTextArea').froalaEditor('html.get', true);
 
@@ -84,31 +82,5 @@ $('.saveMessage').on('submit', e => {
                 console.log('request finished');
             }
     });
-
-    // $.ajax({
-    //     url: '/api/posts',
-    //     type: 'POST',
-    //     data: {
-    //         title: postTitle,
-    //         post: postText,
-    //         file: postFile
-    //     },
-    //     xhrFields: {
-    //         withCredentials: true
-    //     },
-    //     success: (res) => {
-    //         $('#postTitle').val('');
-    //         $('#postTextArea').val('');
-    //         console.log($(e.target));
-    //     },
-    //     error: (res) => {
-    //         console.log(response(res));
-    //         // window.location.replace('/');
-    //     },
-    //     complete: () => {
-    //         console.log('done')
-    //     }
-    // });
-
     
 })
